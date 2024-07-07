@@ -3,7 +3,7 @@ const User = require('../models/user');
 const Joi = require('joi');
 
 // Walidacja danych wejściowych przy rejestracji
-const schema = Joi.object({
+const signupSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
 });
@@ -12,7 +12,7 @@ const schema = Joi.object({
 exports.signup = async (req, res) => {
   try {
     // Sprawdzenie poprawności danych wejściowych
-    const { error } = schema.validate(req.body);
+    const { error } = signupSchema.validate(req.body);
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
