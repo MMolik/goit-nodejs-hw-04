@@ -1,16 +1,11 @@
-const User = require('../models/user');
-
 // Obsługa endpointu obecnego użytkownika
-exports.getCurrent = async (req, res) => {
+exports.getCurrent = (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(401).json({ message: 'Not authorized' });
-    }
+    const { email, subscription } = req.user;
 
     res.status(200).json({
-      email: user.email,
-      subscription: user.subscription,
+      email,
+      subscription,
     });
   } catch (err) {
     console.error(err);
